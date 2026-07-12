@@ -4,12 +4,35 @@ import Image from "next/image";
 import ProductCard from "./components/ProductCard";
 import { productos } from "./data/productos";
 import { useState } from "react";
+import BarraBusqueda from "./components/BarraBusqueda";
 
 export default function Home() {
-  const[showProducts, setShowProducts] = useState(true);
+  const [showProducts, setShowProducts] = useState(true);
+  const [textoBusqueda, setTextoBusqueda] = useState("");
+  const productosFiltrados = productos.filter((product) =>
+    product.titulo
+      .toLowerCase()
+      .includes(textoBusqueda.toLowerCase())
+  );
   return (
     <div className="p-10">
-      <h1>Bienvenidos a mi proyeccon con Next Jc</h1>
+      <h1>Bienvenidos a mi proyecto con con NextJs</h1>
+      <BarraBusqueda
+        valor={textoBusqueda}
+        alCambiar={setTextoBusqueda}
+        marcador="Buscar producto..."
+      />
+      <div className="flex flex-wrap justify-center gap-8 mt-8">
+        {productosFiltrados.map((product) => (
+          <ProductCard
+            key={product.id}
+            titulo={product.titulo}
+            descripcion={product.descripcion}
+            precio={product.precio}
+            image={product.image}
+          />
+        ))}
+      </div>
       <Boton onClick={() => alert("¡Botón clickeado")}>Haz clic aqui</Boton>
 
       <ProductCard
