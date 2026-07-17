@@ -1,27 +1,42 @@
 "use client";
-import Boton from "./components/Boton";
-import Image from "next/image";
-import ProductCard from "./components/ProductCard";
-import { productos } from "./data/productos";
-import { useState } from "react";
-import BarraBusqueda from "./components/BarraBusqueda";
+
+import { useState, useMemo } from "react";
+import Boton from "../ui/components/Boton";
+import ProductCard from "../ui/components/ProductCard";
+import BarraBusqueda from "../ui/components/BarraBusqueda";
+import { productos } from "../data/productos";
+import Image, {StaticImageData} from "next/image";
 
 export default function Home() {
-  const [showProducts, setShowProducts] = useState(true);
   const [textoBusqueda, setTextoBusqueda] = useState("");
-  const productosFiltrados = productos.filter((product) =>
-    product.titulo
-      .toLowerCase()
-      .includes(textoBusqueda.toLowerCase())
-  );
+
+  // Evita filtrar el array en cada render innecesario usando useMemo
+  const productosFiltrados = useMemo(() => {
+    return productos.filter((product) =>
+      product.titulo.toLowerCase().includes(textoBusqueda.toLowerCase())
+    );
+  }, [textoBusqueda]);
+
   return (
     <div className="p-10">
-      <h1>Bienvenidos a mi proyecto con con NextJs</h1>
+      <h1 className="text-2xl font-bold mb-4">Catálogo de Productos</h1>
+
       <BarraBusqueda
         valor={textoBusqueda}
         alCambiar={setTextoBusqueda}
         marcador="Buscar producto..."
       />
+
+      <div className="mt-8">
+        {/* Corregido: "justify=center" no es válido en Tailwind. Usamos flex, justify-center e items-center */}
+        <Boton 
+          onClick={() => alert("¡Botón clickeado!")} 
+          className="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded-md flex justify-center items-center gap-4"
+        >
+          Haz clic aquí
+        </Boton>
+      </div>
+
       <div className="flex flex-wrap justify-center gap-8 mt-8">
         {productosFiltrados.map((product) => (
           <ProductCard
@@ -29,38 +44,10 @@ export default function Home() {
             titulo={product.titulo}
             descripcion={product.descripcion}
             precio={product.precio}
-            image={product.image}
+            imagen={product.imagen}
           />
         ))}
       </div>
-      <Boton onClick={() => alert("¡Botón clickeado")}>Haz clic aqui</Boton>
-
-      <ProductCard
-        titulo="Producto de ejemplo"
-        descripcion="Esta es una descripción de ejemplo para el producto."
-        precio={49.99}
-        image="https://static.vecteezy.com/system/resources/previews/038/016/534/non_2x/jc-blue-logo-design-logo-design-for-business-free-vector.jpg"
-      />
-      {showProducts && (
-        <div className="flex flex-wrap justify-center gap-8 mt-8">
-          {productos.map((product) => (
-            <ProductCard
-              key={product.id}
-              titulo={product.titulo}
-              descripcion={product.descripcion}
-              precio={product.precio}
-              image={product.image}
-            />
-          ))}
-        </div>
-      )}
-      <div>
-        <Boton onClick={() => setShowProducts(!showProducts)} className="mt-4 bg-green-600 text-white px-4 py-2 rounded-md mb-20">
-          {showProducts ? "Ocultar Productos" : "Mostrar Productos"}
-        </Boton>
-
-      </div>
-
     </div>
   );
 }
