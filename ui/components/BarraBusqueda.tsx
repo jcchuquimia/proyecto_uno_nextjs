@@ -18,7 +18,7 @@ export default function BarraBusqueda({
                 value={valor}
                 onChange={(e) => alCambiar(e.target.value)}
                 placeholder={marcador}
-                className="focus:outline-none"
+                className="focus:outline-none text-black"
              />
         </div>
     );

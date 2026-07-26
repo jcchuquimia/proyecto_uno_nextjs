@@ -37,7 +37,7 @@ export default function Home() {
         {/* Corregido: "justify=center" no es válido en Tailwind. Usamos flex, justify-center e items-center */}
         <Boton
           onClick={() => alert("¡Botón clickeado!")}
-          className="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded-md flex justify-center items-center gap-4"
+          className="bg-blue-500 hover:bg-blue-700 text-black px-4 py-2 rounded-md flex justify-center items-center gap-4 "
         >
           Haz clic aquí
         </Boton>
