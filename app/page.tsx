@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import Boton from "../ui/components/Boton";
 import ProductCard from "../ui/components/ProductCard";
 import BarraBusqueda from "../ui/components/BarraBusqueda";
 import { productos } from "../data/productos";
-import Image, {StaticImageData} from "next/image";
+import Image, { StaticImageData } from "next/image";
 
 export default function Home() {
   const [textoBusqueda, setTextoBusqueda] = useState("");
@@ -16,6 +16,12 @@ export default function Home() {
       product.titulo.toLowerCase().includes(textoBusqueda.toLowerCase())
     );
   }, [textoBusqueda]);
+
+  useEffect(() => {
+    fetch("https://jsonplaceholder.typicode.com/users")
+      .then((response) => response.json())
+      .then((data) => console.log(data));
+  }, []);
 
   return (
     <div className="p-10">
@@ -29,8 +35,8 @@ export default function Home() {
 
       <div className="mt-8">
         {/* Corregido: "justify=center" no es válido en Tailwind. Usamos flex, justify-center e items-center */}
-        <Boton 
-          onClick={() => alert("¡Botón clickeado!")} 
+        <Boton
+          onClick={() => alert("¡Botón clickeado!")}
           className="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded-md flex justify-center items-center gap-4"
         >
           Haz clic aquí

@@ -23,7 +23,7 @@ export default function ProductCard({
                     sizes="288px" // 3. Le dice a Next.js que optimice la imagen para el ancho de la tarjeta (w-72 = 288px)
                     className="object-cover" // 4. Ajusta la imagen para que no se deforme (recorta excedentes de forma armoniosa)
                     priority={true} // 5. Carga rápida sin retrasos ni parpadeos
-                    quality={90} // 6. Sube la calidad al 90% para máxima nitidez
+                    
                 />
             </div>
             <div className="p-4">

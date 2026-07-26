@@ -12,9 +12,23 @@ export type Producto = {
   rate: {
     rate: number;
     count: number;
-  }
-  category: string
+  };
+  category: string;
 };
+
+export interface FakeStoreProduct {
+  id: number;
+  title: string;
+  description: string;
+  price: number;
+  image: string;
+  category: string;
+  rating: {
+    rate: number;
+    count: number;
+  };
+}
+
 export const productos: Producto[] = [
   {
     id: 1,
@@ -26,7 +40,7 @@ export const productos: Producto[] = [
       rate: 4.5,
       count: 120,
     },
-    category: "Categoria 1"
+    category: "Categoria 1",
   },
   {
     id: 2,
@@ -38,7 +52,7 @@ export const productos: Producto[] = [
       rate: 4.5,
       count: 95,
     },
-    category: "Categoria 2"
+    category: "Categoria 2",
   },
   {
     id: 3,
@@ -50,6 +64,6 @@ export const productos: Producto[] = [
       rate: 4.5,
       count: 95,
     },
-    category: "Categoria 3"
+    category: "Categoria 3",
   },
-]
+];
